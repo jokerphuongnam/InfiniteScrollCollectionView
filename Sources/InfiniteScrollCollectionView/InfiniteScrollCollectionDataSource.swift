@@ -22,14 +22,14 @@ extension InfiniteScrollCollectionDataSource: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let dataSource = dataSource else { return 0 }
-        let count = dataSource.collectionView(count: collectionView)
+        let count = dataSource.collectionView(collectionView, numberOfItemsInSection: 0)
         let numberOfSets = dataSource.numberOfSets(in: collectionView)
         return count + (2 * numberOfSets)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let dataSource = dataSource else { return UICollectionViewCell(frame: .zero) }
-        let realCount = dataSource.collectionView(count: collectionView)
+        let realCount = dataSource.collectionView(collectionView, numberOfItemsInSection: 0)
         let numberOfSets = dataSource.numberOfSets(in: collectionView)
         var calculateIndex = (indexPath.row - numberOfSets) % realCount
         if calculateIndex < 0  {

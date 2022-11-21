@@ -14,7 +14,7 @@ open class InfiniteScrollCollectionView: UICollectionView {
     private var isConfig = false
     var numberOfSets: Int = 0
     private var count: Int {
-        infiniteDataSource?.collectionView(count: self) ?? 0
+        infiniteDataSource?.collectionView(self, numberOfItemsInSection: 0) ?? 0
     }
     
     open weak var infiniteDataSource: InfiniteScrollCollectionViewDataSource! {
@@ -62,24 +62,24 @@ open class InfiniteScrollCollectionView: UICollectionView {
         let indexPathSort = indexPaths.sorted { lhs, rhs in
             lhs.item < rhs.item
         }
-        guard let lastIndexPath = indexPathSort.last else {
+        guard let lastIndexPath = indexPathSort.last, let firstIndexPath = indexPathSort.first else {
             return
         }
-        if lastIndexPath.item == numberOfSets - 1 {
+        if lastIndexPath.item < numberOfSets || firstIndexPath.item < numberOfSets {
             scrollToItem(at: [0, count + numberOfSets - 1], at: .right, animated: false)
             scrollToItem(at: [0, count + numberOfSets - 1], at: .bottom, animated: false)
-        } else if lastIndexPath.item == count + numberOfSets + 1 {
+        } else if lastIndexPath.item > count + numberOfSets {
             scrollToItem(at: [0, numberOfSets], at: .right, animated: false)
             scrollToItem(at: [0, numberOfSets], at: .bottom, animated: false)
         }
     }
     
     private func resetPosition() {
-        layoutIfNeeded()
         let item = infiniteDataSource.numberOfSets(in: self)
         let section = 0
         let indexPath = IndexPath(item: item, section: section)
         scrollToItem(at: indexPath, at: .top, animated: false)
         scrollToItem(at: indexPath, at: .left, animated: false)
+        layoutIfNeeded()
     }
 }
