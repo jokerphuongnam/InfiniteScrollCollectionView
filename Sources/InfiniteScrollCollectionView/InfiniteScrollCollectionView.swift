@@ -67,10 +67,10 @@ open class InfiniteScrollCollectionView: UICollectionView {
         }
         var toItem: Int? = nil
         let indexPathItem = lastIndexPath.item < firstIndexPath.item ? lastIndexPath.item : firstIndexPath.item
-        if indexPathItem == numberOfSets - 1 {
+        if indexPathItem == numberOfSets {
             toItem = count + numberOfSets
         } else if indexPathItem == count + numberOfSets + 1 {
-            toItem = numberOfSets
+            toItem = numberOfSets + 1
         }
         if let toItem = toItem {
             scrollToItem(at: [0, toItem], at: .right, animated: false)
@@ -79,7 +79,7 @@ open class InfiniteScrollCollectionView: UICollectionView {
     }
     
     private func resetPosition() {
-        let item = infiniteDataSource.numberOfSets(in: self)
+        let item = infiniteDataSource.numberOfSets(in: self) + 1
         let section = 0
         let indexPath = IndexPath(item: item, section: section)
         scrollToItem(at: indexPath, at: .top, animated: false)
