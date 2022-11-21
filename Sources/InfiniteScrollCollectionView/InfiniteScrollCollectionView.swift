@@ -65,12 +65,15 @@ open class InfiniteScrollCollectionView: UICollectionView {
         guard let lastIndexPath = indexPathSort.last, let firstIndexPath = indexPathSort.first else {
             return
         }
+        var toItem: Int? = nil
         if lastIndexPath.item == numberOfSets - 1 || firstIndexPath.item == numberOfSets - 1 {
-            scrollToItem(at: [0, count + numberOfSets - 1], at: .right, animated: false)
-            scrollToItem(at: [0, count + numberOfSets - 1], at: .bottom, animated: false)
+            toItem = count + numberOfSets
         } else if lastIndexPath.item == count + numberOfSets + 1 {
-            scrollToItem(at: [0, numberOfSets], at: .right, animated: false)
-            scrollToItem(at: [0, numberOfSets], at: .bottom, animated: false)
+            toItem = numberOfSets
+        }
+        if let toItem = toItem, indexPathsForVisibleItems.contains([toItem, 0]) {
+            scrollToItem(at: [0, toItem], at: .right, animated: false)
+            scrollToItem(at: [0, toItem], at: .bottom, animated: false)
         }
     }
     
