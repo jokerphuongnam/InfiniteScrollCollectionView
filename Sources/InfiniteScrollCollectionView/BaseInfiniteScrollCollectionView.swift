@@ -12,3 +12,14 @@ protocol BaseInfiniteScrollCollectionView {
     var infiniteIndexPathsForVisibleItems: [IndexPath] { get }
     func infiniteScrollToItem(at indexPath: IndexPath, at scrollPosition: UICollectionView.ScrollPosition)
 }
+
+extension UICollectionView: BaseInfiniteScrollCollectionView {
+    @objc open var infiniteIndexPathsForVisibleItems: [IndexPath] {
+        indexPathsForVisibleItems
+    }
+    
+    @objc open func infiniteScrollToItem(at indexPath: IndexPath, at scrollPosition: UICollectionView.ScrollPosition) {
+        scrollToItem(at: indexPath, at: scrollPosition, animated: false)
+        scrollToItem(at: indexPath, at: scrollPosition, animated: false)
+    }
+}

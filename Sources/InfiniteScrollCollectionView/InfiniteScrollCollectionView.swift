@@ -9,10 +9,7 @@ import UIKit
 
 private var dataSourceKey: Void?
 
-open class InfiniteScrollCollectionView: UICollectionView, BaseInfiniteScrollCollectionView {
-    open var infiniteIndexPathsForVisibleItems: [IndexPath] {
-        indexPathsForVisibleItems
-    }
+open class InfiniteScrollCollectionView: UICollectionView {
     private var isLayoutSubViews = false
     private var isConfig = false
     var numberOfSets: Int = 0
@@ -76,11 +73,6 @@ open class InfiniteScrollCollectionView: UICollectionView, BaseInfiniteScrollCol
             scrollToItem(at: [0, toItem], at: .right, animated: false)
             scrollToItem(at: [0, toItem], at: .bottom, animated: false)
         }
-    }
-    
-    open func infiniteScrollToItem(at indexPath: IndexPath, at scrollPosition: UICollectionView.ScrollPosition) {
-        scrollToItem(at: indexPath, at: scrollPosition, animated: false)
-        scrollToItem(at: indexPath, at: scrollPosition, animated: false)
     }
     
     private func resetPosition() {
