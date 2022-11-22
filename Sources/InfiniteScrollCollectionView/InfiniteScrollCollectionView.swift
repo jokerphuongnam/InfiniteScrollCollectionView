@@ -51,6 +51,57 @@ open class InfiniteScrollCollectionView: UICollectionView {
         }
     }
     
+    open override func reloadData() {
+        super.reloadData()
+        isConfig = false
+    }
+    
+    open override func insertSections(_ sections: IndexSet) {
+        super.insertSections(sections)
+        isConfig = false
+    }
+    
+    open override func deleteSections(_ sections: IndexSet) {
+        super.deleteSections(sections)
+        isConfig = false
+    }
+    
+    open override func moveSection(_ section: Int, toSection newSection: Int) {
+        super.moveSection(section, toSection: newSection)
+        isConfig = false
+    }
+    
+    open override func reloadSections(_ sections: IndexSet) {
+        super.reloadSections(sections)
+        isConfig = false
+    }
+    
+    open override func insertItems(at indexPaths: [IndexPath]) {
+        super.insertItems(at: indexPaths)
+        isConfig = false
+    }
+    
+    open override func deleteItems(at indexPaths: [IndexPath]) {
+        super.deleteItems(at: indexPaths)
+        isConfig = false
+    }
+    
+    open override func moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath) {
+        super.moveItem(at: indexPath, to: newIndexPath)
+        isConfig = false
+    }
+    
+    open override func reloadItems(at indexPaths: [IndexPath]) {
+        super.reloadItems(at: indexPaths)
+        isConfig = false
+    }
+    
+    @available(iOS 15.0, *)
+    open override func reconfigureItems(at indexPaths: [IndexPath]) {
+        super.reconfigureItems(at: indexPaths)
+        isConfig = false
+    }
+    
     open func infiniteScroll(visibleIndexPaths indexPaths: [IndexPath]) {
         let indexPathSort = indexPaths.sorted { lhs, rhs in
             lhs.item < rhs.item
