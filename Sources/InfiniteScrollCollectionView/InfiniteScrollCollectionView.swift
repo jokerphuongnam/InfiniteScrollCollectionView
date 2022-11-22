@@ -9,7 +9,7 @@ import UIKit
 
 private var dataSourceKey: Void?
 
-open class InfiniteScrollCollectionView: UICollectionView {
+open class InfiniteScrollCollectionView: UICollectionView, BaseInfiniteScrollCollectionView {
     open var infiniteIndexPathsForVisibleItems: [IndexPath] {
         indexPathsForVisibleItems
     }
