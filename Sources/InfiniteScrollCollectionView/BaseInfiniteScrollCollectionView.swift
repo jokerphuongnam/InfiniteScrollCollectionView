@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-protocol BaseInfiniteScrollCollectionView {
+public protocol BaseInfiniteScrollCollectionView {
     var infiniteIndexPathsForVisibleItems: [IndexPath] { get }
     func infiniteScrollToItem(at indexPath: IndexPath, at scrollPosition: UICollectionView.ScrollPosition)
 }
