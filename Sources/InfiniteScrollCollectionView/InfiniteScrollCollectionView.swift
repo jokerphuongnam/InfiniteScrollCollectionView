@@ -35,9 +35,6 @@ open class InfiniteScrollCollectionView: UICollectionView {
     
     open override var contentOffset: CGPoint {
         didSet {
-            guard infiniteDataSource != nil else {
-                return
-            }
             let infiniteIndexPathsForVisibleItems = infiniteIndexPathsForVisibleItems
             if !infiniteIndexPathsForVisibleItems.isEmpty {
                 infiniteScroll(visibleIndexPaths: infiniteIndexPathsForVisibleItems)
