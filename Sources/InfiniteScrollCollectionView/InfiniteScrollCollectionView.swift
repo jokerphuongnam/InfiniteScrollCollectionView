@@ -23,7 +23,7 @@ open class InfiniteScrollCollectionView: UICollectionView {
                 setRetainedAssociatedObject(&dataSourceKey, InfiniteScrollCollectionDataSource(newValue))
                 dataSource = getAssociatedObject(&dataSourceKey)
                 numberOfSets = newValue.numberOfSets(in: self)
-                if isLayoutSubViews {
+                if !isLayoutSubViews {
                     layoutIfNeeded()
                     resetPosition()
                 }
@@ -66,10 +66,11 @@ open class InfiniteScrollCollectionView: UICollectionView {
             return
         }
         var toItem: Int? = nil
-        let indexPathItem = lastIndexPath.item < firstIndexPath.item ? lastIndexPath.item : firstIndexPath.item
-        if indexPathItem == numberOfSets {
+        let leftIndexPath = firstIndexPath.item != 0 ? firstIndexPath.item : lastIndexPath.item
+        let rightIndexPath = lastIndexPath.item != 0 ? lastIndexPath.item : firstIndexPath.item
+        if leftIndexPath == numberOfSets {
             toItem = count + numberOfSets
-        } else if indexPathItem == count + numberOfSets + 1 {
+        } else if rightIndexPath == count + numberOfSets + 1 {
             toItem = numberOfSets + 1
         }
         if let toItem = toItem {
