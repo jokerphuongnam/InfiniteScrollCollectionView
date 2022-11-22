@@ -10,6 +10,9 @@ import UIKit
 private var dataSourceKey: Void?
 
 open class InfiniteScrollCollectionView: UICollectionView {
+    open var infiniteIndexPathsForVisibleItems: [IndexPath] {
+        indexPathsForVisibleItems
+    }
     private var isLayoutSubViews = false
     private var isConfig = false
     var numberOfSets: Int = 0
@@ -38,13 +41,9 @@ open class InfiniteScrollCollectionView: UICollectionView {
             guard infiniteDataSource != nil else {
                 return
             }
-            if !visibleCells.isEmpty {
-                var indexPaths = [IndexPath]()
-                for cell in visibleCells {
-                    guard let indexPath = indexPath(for: cell) else { continue }
-                    indexPaths.append(indexPath)
-                }
-                infiniteScroll(visibleIndexPaths: indexPaths)
+            let infiniteIndexPathsForVisibleItems = infiniteIndexPathsForVisibleItems
+            if !infiniteIndexPathsForVisibleItems.isEmpty {
+                infiniteScroll(visibleIndexPaths: infiniteIndexPathsForVisibleItems)
             }
         }
     }
@@ -79,13 +78,18 @@ open class InfiniteScrollCollectionView: UICollectionView {
         }
     }
     
+    open func infiniteScrollToItem(at indexPath: IndexPath, at scrollPosition: UICollectionView.ScrollPosition) {
+        scrollToItem(at: indexPath, at: scrollPosition, animated: false)
+        scrollToItem(at: indexPath, at: scrollPosition, animated: false)
+    }
+    
     private func resetPosition() {
         guard let infiniteDataSource = infiniteDataSource else { return }
         let item = infiniteDataSource.numberOfSets(in: self) + 1
         let section = 0
         let indexPath = IndexPath(item: item, section: section)
-        scrollToItem(at: indexPath, at: .top, animated: false)
-        scrollToItem(at: indexPath, at: .left, animated: false)
+        infiniteScrollToItem(at: indexPath, at: .top)
+        infiniteScrollToItem(at: indexPath, at: .left)
         layoutIfNeeded()
     }
 }
