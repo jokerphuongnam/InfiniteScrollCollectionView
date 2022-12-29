@@ -113,9 +113,9 @@ open class InfiniteScrollCollectionView: UICollectionView {
         let count = count
         let leftIndexPath = firstIndexPath.item != 0 ? firstIndexPath.item : lastIndexPath.item
         let rightIndexPath = lastIndexPath.item != 0 ? lastIndexPath.item : firstIndexPath.item
-        if leftIndexPath == numberOfSets - 1 {
-            toItem = count + numberOfSets
-        } else if rightIndexPath == count + numberOfSets {
+        if leftIndexPath <= numberOfSets - 1 && !isDragging {
+            toItem = count + numberOfSets - 1
+        } else if rightIndexPath >= count + numberOfSets {
             toItem = numberOfSets
         }
         if let toItem = toItem, count > 0 {
@@ -130,7 +130,6 @@ open class InfiniteScrollCollectionView: UICollectionView {
         let item = numberOfSets
         let section = 0
         let indexPath = IndexPath(item: item, section: section)
-        print(#function, self, indexPath, numberOfSets, infiniteDataSource.numberOfSets(in: self))
         infiniteScrollToItem(at: indexPath, at: .top)
         infiniteScrollToItem(at: indexPath, at: .left)
         layoutIfNeeded()
