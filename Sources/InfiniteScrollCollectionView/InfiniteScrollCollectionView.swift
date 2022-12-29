@@ -129,6 +129,7 @@ open class InfiniteScrollCollectionView: UICollectionView {
         let item = numberOfSets
         let section = 0
         let indexPath = IndexPath(item: item, section: section)
+        print(#function, self, indexPath, numberOfSets, infiniteDataSource.numberOfSets(in: self))
         infiniteScrollToItem(at: indexPath, at: .top)
         infiniteScrollToItem(at: indexPath, at: .left)
         layoutIfNeeded()
